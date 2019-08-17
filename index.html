@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .flex-container {
+            display: flex;
+        }
+
+
+        .flex-container>div {
+            flex: 1;
+            height: 500px;
+            margin: 10px;
+            text-align: left;
+            border: 2px;
+            border-style: solid;
+            border-color: gray;
+            padding: 0px;
+        }
+
+        .flex-container>div>textarea {
+            font-size: 20px;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script src="./lib.js"></script>
+</head>
+
+<body>
+    <h1>JSON to go struct generator</h1>
+    <div>
+        <strong>Specify the name of the go struct here</strong>
+        <input type="text" id="rootName">
+        <button onclick="convert()">Convert</button>
+    </div>
+    <div class="flex-container">
+        <div>
+            <textarea id="src" contenteditable="true" placeholder="Enter your json content here ..."></textarea>
+        </div>
+        <div>
+            <textarea id="dst"></textarea>
+        </div>
+    </div>
+    <script>
+        function convertToPlaintext() {
+            var textContent = this.textContent;
+            this.innerHTML = "";
+            this.textContent = textContent;
+        }
+
+        var contentEditableNodes = document.querySelectorAll('[contenteditable]');
+
+        [].forEach.call(contentEditableNodes, function (div) {
+            div.addEventListener("input", convertToPlaintext, false);
+        });
+
+        function convert() {
+            var rootName = document.getElementById('rootName').value;
+            if (rootName.length == 0) {
+                document.getElementById('dst').innerHTML = "Please specify the root name of the go struct"
+            } else {
+                var jsonContent = document.getElementById('src').value;
+                console.log(jsonContent);
+                try {
+                    var jsonObj = JSON.parse(jsonContent);
+                    document.getElementById('dst').value = json2struct(rootName, jsonObj)
+                } catch (e) {
+                    console.log(e);
+                    document.getElementById('dst').value = "Input content is not JSON"
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>

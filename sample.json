@@ -1,0 +1,18 @@
+{
+    "astring": "hello",
+    "afloat": 212.1,
+    "aint": 210,
+    "abool": true,
+    "bembed": {
+        "bstring": "abc",
+        "bfloat": 112.1,
+        "bint": 110,
+        "bbool": false,
+        "cembed": {
+            "cstring": "cde",
+            "cfloat": 12.1,
+            "cint": 10,
+            "cbool": false
+        }
+    }
+}
